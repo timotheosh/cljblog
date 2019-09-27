@@ -35,22 +35,12 @@
   [request]
   (res/response (layout-page request (html [:h1 "Default Page"]))))
 
-(defn new-handler
-  [request]
-  (res/response (layout-page request (html [:h1 "test.selfdidactic.com"]))))
 
 (def my-vhosts-model
   (vhosts/vhosts-model ["http://test.selfdidactic.com:8880"
                         ["/" [["" (files {:dir "/srv/websites/localtest/webroot/"})]]]]
                        [:*
                         ["/" index-handler]]))
-
-
-(def my-routes [:host ":*"
-                ["/" [
-                      ["" index-handler]
-                      ["index.html" index-handler]
-                      ["public" [["" (files {:dir "/srv/websites/localtest/webroot/"})]]]]]])
 
 (def handler
   (vhosts/make-handler my-vhosts-model))
